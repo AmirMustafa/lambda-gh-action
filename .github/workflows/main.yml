@@ -3,17 +3,19 @@ name: Deploy
 on:
   push:
     branches:
-      - master
+      - master # whenever code is pushed in master, trigger below job
 
 jobs:
-  deploy_lambda:
+  deploy_lambda: # name of job
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v2 # checkout this repository
+      - uses: actions/setup-node@v2 # setup node
         with:
-          node-version: "14"
+          node-version: "14" # with version 14
       - name: npm install
         env:
           CI: true
-        run: npm ci
+        run:
+          | # Similar to npm install, but for CI/CD as GitHub do not have node_modules package pushed
+          npm ci
